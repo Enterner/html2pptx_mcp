@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>违规样本（验证拦截与 auto-fix）</title></head>
+<body>
+  <!-- 故意混合「必须拒绝」与「可 auto-fix」两类写法，验证 §10.4：要么修复、要么拒绝、绝不静默通过。
+
+       必须拒绝（rejected[]）：
+         R1 display:flex + gap            R2 left:calc(...)          R3 text-shadow
+         R4 rowspan 合并单元格            R5 letter-spacing:2px      R6 <section> 标签
+         R7 flex 子元素缺 left/top（MISSING_BOX ×2）
+
+       可 auto-fix（fixed[]）：
+         F1 width:50%  → 640px           F2 font-size:1.25em → 20px
+         F3 字体族 → 白名单 Segoe UI     F4 rgb(79,70,229) → #4F46E5
+         F5 lightgray → #D3D3D3          （letter-spacing:0 属白名单内，静默合法）-->
+  <div id="page" style="width:1280px;height:720px;background-color:#FFFFFF">
+
+    <div style="position:absolute;left:64px;top:64px;width:400px;height:200px;display:flex;gap:8px">
+      <div style="width:100px;height:40px;background-color:#FCA5A5">A</div>
+      <div style="width:100px;height:40px;background-color:#FCA5A5">B</div>
+    </div>
+
+    <div style="position:absolute;left:calc(50% - 100px);top:300px;width:50%;height:80px;background-color:#FDE68A"></div>
+
+    <div style="position:absolute;left:64px;top:420px;width:400px;height:40px;font-size:20px;color:#0F172A;text-shadow:1px 1px 2px #999">阴影文本被拒绝</div>
+
+    <div style="position:absolute;left:500px;top:420px;width:400px;height:40px;font-size:1.25em;letter-spacing:0;font-family:system-ui,'Segoe UI',sans-serif;color:rgb(79,70,229);background-color:lightgray;text-align:center;line-height:40px">auto-fix 演示</div>
+
+    <table style="position:absolute;left:64px;top:500px;width:400px;height:120px">
+      <tr><td rowspan="2">合并</td><td>B</td></tr>
+      <tr><td>D</td></tr>
+    </table>
+
+    <div style="position:absolute;left:560px;top:520px;width:300px;height:32px;font-size:16px;letter-spacing:2px;color:#334155">宽字距被拒绝</div>
+
+    <section style="position:absolute;left:64px;top:660px;width:200px;height:40px;background-color:#FECACA"></section>
+  </div>
+</body>
+</html>

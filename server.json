@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.Enterner/html2pptx_mcp",
+  "title": "html2pptx-mcp",
+  "description": "Generate natively editable PowerPoint decks from a restricted, versioned HTML contract",
+  "version": "0.4.0a1",
+  "repository": {
+    "url": "https://github.com/Enterner/html2pptx_mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "html2pptx-mcp",
+      "version": "0.4.0a1",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

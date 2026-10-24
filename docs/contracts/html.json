@@ -1,0 +1,1469 @@
+{
+  "contract": "pptx-html",
+  "status": "stable",
+  "canvas": {
+    "width_px": 1280.0,
+    "height_px": 720.0,
+    "emu_per_px": 9525,
+    "dpi": 96
+  },
+  "units": {
+    "allowed": [
+      "px",
+      "em",
+      "%",
+      "pt",
+      "vw",
+      "vh"
+    ],
+    "rejected": [
+      "rem",
+      "vmin",
+      "vmax",
+      "ex",
+      "ch",
+      "cm",
+      "mm",
+      "in",
+      "q"
+    ]
+  },
+  "kinds": {
+    "enum": "取值必须命中 values 列表",
+    "length": "长度：px / % / em / pt，按约束换算或拒绝",
+    "color": "颜色：#hex / rgb() / rgba() / 具名色",
+    "fill": "填充：纯色或恰好两个色标的 linear-gradient",
+    "border": "边框简写：<宽度>px solid|dashed|dotted <颜色> 或 none",
+    "radius": "圆角：单值 px 或百分比（四角统一）",
+    "opacity": "透明度：0–1",
+    "transform": "变换：仅 rotate(<N>deg)",
+    "shadow": "阴影：单层外阴影 dx dy [blur] <颜色>",
+    "font": "字体族：按字体策略白名单解析",
+    "font-weight": "字重：normal / bold / 100–900",
+    "line-height": "行高：倍数 / px / %",
+    "padding": "内边距：1–4 个长度",
+    "letter-spacing": "字距：长度（px，可负），0 表示无",
+    "display": "兼容性属性：none 剪枝，block/inline 丢弃，flex/grid 拒绝",
+    "margin": "兼容性属性：仅允许 0",
+    "writing-mode": "writing-mode: vertical-rl 竖排；horizontal-tb 为默认（无操作）",
+    "text-indent": "首行缩进：长度，可为负",
+    "clip-path": "clip-path:polygon(...) 顶点（%/px），至少 3 个，映射为自由多边形",
+    "flex": "flex 简写：none / auto / <grow> [<shrink> [auto]]（basis 仅 auto）",
+    "transform-origin": "变换原点：仅 center / center center（旋转枢轴恒为中心）"
+  },
+  "tags": {
+    "div": {
+      "category": "structural",
+      "status": "stable",
+      "note": "唯一的块级元素：承载文本、形状，或作为定位容器"
+    },
+    "img": {
+      "category": "media",
+      "status": "stable",
+      "attributes": [
+        "src",
+        "alt",
+        "style"
+      ],
+      "note": "src 仅接受 base_dir 内的相对路径或 data:image/*;base64"
+    },
+    "table": {
+      "category": "table",
+      "status": "stable",
+      "children": [
+        "thead",
+        "tbody",
+        "tr"
+      ],
+      "note": "简单表格：无合并单元格、无嵌套"
+    },
+    "thead": {
+      "category": "table",
+      "status": "stable",
+      "children": [
+        "tr"
+      ]
+    },
+    "tbody": {
+      "category": "table",
+      "status": "stable",
+      "children": [
+        "tr"
+      ]
+    },
+    "tr": {
+      "category": "table",
+      "status": "stable",
+      "children": [
+        "td",
+        "th"
+      ]
+    },
+    "td": {
+      "category": "table",
+      "status": "stable",
+      "note": "单元格支持 background-color / color / border / text-align / font-weight / padding；<b>/<i> 生效"
+    },
+    "th": {
+      "category": "table",
+      "status": "stable"
+    },
+    "svg": {
+      "category": "vector",
+      "status": "stable",
+      "children": [
+        "rect",
+        "circle",
+        "line"
+      ],
+      "attributes": [
+        "width",
+        "height",
+        "style"
+      ]
+    },
+    "rect": {
+      "category": "vector",
+      "status": "stable",
+      "attributes": [
+        "x",
+        "y",
+        "width",
+        "height",
+        "rx",
+        "fill",
+        "stroke",
+        "stroke-width",
+        "opacity"
+      ]
+    },
+    "circle": {
+      "category": "vector",
+      "status": "stable",
+      "attributes": [
+        "cx",
+        "cy",
+        "r",
+        "fill",
+        "stroke",
+        "stroke-width",
+        "opacity"
+      ]
+    },
+    "line": {
+      "category": "vector",
+      "status": "stable",
+      "attributes": [
+        "x1",
+        "y1",
+        "x2",
+        "y2",
+        "stroke",
+        "stroke-width",
+        "opacity"
+      ]
+    },
+    "b": {
+      "category": "inline",
+      "status": "stable",
+      "children": [
+        "b",
+        "strong",
+        "em",
+        "i",
+        "span",
+        "br"
+      ]
+    },
+    "strong": {
+      "category": "inline",
+      "status": "stable",
+      "children": [
+        "b",
+        "strong",
+        "em",
+        "i",
+        "span",
+        "br"
+      ]
+    },
+    "em": {
+      "category": "inline",
+      "status": "stable",
+      "children": [
+        "b",
+        "strong",
+        "em",
+        "i",
+        "span",
+        "br"
+      ]
+    },
+    "i": {
+      "category": "inline",
+      "status": "stable",
+      "children": [
+        "b",
+        "strong",
+        "em",
+        "i",
+        "span",
+        "br"
+      ]
+    },
+    "span": {
+      "category": "inline",
+      "status": "stable",
+      "children": [
+        "b",
+        "strong",
+        "em",
+        "i",
+        "span",
+        "br"
+      ],
+      "note": "内联样式仅接受 color / font-size / font-weight / font-family"
+    },
+    "br": {
+      "category": "inline",
+      "status": "stable"
+    }
+  },
+  "properties": {
+    "position": {
+      "kind": "enum",
+      "group": "layout",
+      "syntax": "absolute / relative",
+      "status": "stable",
+      "maps_to": [
+        "layout.absolute"
+      ],
+      "fixes": [
+        "fix.structure.implicit-absolute"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "absolute",
+        "relative"
+      ],
+      "note": "absolute 为唯一布局模型；relative 在盒已确定时等价（作为定位祖先），缺 left/top 的 relative 元素由 flex 布局给盒"
+    },
+    "left": {
+      "kind": "length",
+      "group": "layout",
+      "syntax": "长度（px / em / % / pt）",
+      "status": "stable",
+      "maps_to": [
+        "shape.box.left"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "percent_ref": "nearest_positioned_ancestor.width",
+        "allow_negative": true
+      }
+    },
+    "top": {
+      "kind": "length",
+      "group": "layout",
+      "syntax": "长度（px / em / % / pt）",
+      "status": "stable",
+      "maps_to": [
+        "shape.box.top"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "percent_ref": "nearest_positioned_ancestor.height",
+        "allow_negative": true
+      }
+    },
+    "width": {
+      "kind": "length",
+      "group": "layout",
+      "syntax": "长度（px / em / % / pt）",
+      "status": "stable",
+      "maps_to": [
+        "shape.box.width"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT",
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "percent_ref": "nearest_positioned_ancestor.width",
+        "min_px": 0
+      }
+    },
+    "height": {
+      "kind": "length",
+      "group": "layout",
+      "syntax": "长度（px / em / % / pt）",
+      "status": "stable",
+      "maps_to": [
+        "shape.box.height"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT",
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "percent_ref": "nearest_positioned_ancestor.height",
+        "min_px": 0
+      }
+    },
+    "transform": {
+      "kind": "transform",
+      "group": "layout",
+      "syntax": "rotate(<N>deg)",
+      "status": "stable",
+      "maps_to": [
+        "shape.transform.rotation"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "note": "只支持旋转；translate/scale/skew 会改变盒语义，不属于盒模型"
+    },
+    "background": {
+      "kind": "fill",
+      "group": "paint",
+      "syntax": "纯色 或 linear-gradient(<角度或方向>, <色标> 0%, <色标> 100%)",
+      "status": "stable",
+      "maps_to": [
+        "shape.fill.solid",
+        "shape.fill.gradient"
+      ],
+      "fixes": [
+        "fix.color.rgb-to-hex",
+        "fix.color.named-to-hex"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "gradient_stops": 2
+      }
+    },
+    "background-color": {
+      "kind": "color",
+      "group": "paint",
+      "syntax": "颜色（#hex / rgb() / rgba() / 具名色）",
+      "status": "stable",
+      "maps_to": [
+        "shape.fill.solid"
+      ],
+      "fixes": [
+        "fix.color.rgb-to-hex",
+        "fix.color.named-to-hex"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ]
+    },
+    "border": {
+      "kind": "border",
+      "group": "paint",
+      "syntax": "<宽度>px solid|dashed|dotted <颜色> 或 none",
+      "status": "stable",
+      "maps_to": [
+        "shape.line"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px",
+        "fix.color.rgb-to-hex",
+        "fix.color.named-to-hex"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "styles": [
+          "solid",
+          "dashed",
+          "dotted"
+        ]
+      }
+    },
+    "border-radius": {
+      "kind": "radius",
+      "group": "paint",
+      "syntax": "单值：<长度> 或 <百分比>",
+      "status": "stable",
+      "maps_to": [
+        "shape.geometry.round_rect",
+        "shape.geometry.ellipse"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "min_px": 0,
+        "percent_max": 100
+      },
+      "note": "px 半径封顶短边一半（stadium）；正方形满圆与 50% 走椭圆"
+    },
+    "box-shadow": {
+      "kind": "shadow",
+      "group": "paint",
+      "syntax": "dx dy [blur] <颜色>",
+      "status": "stable",
+      "maps_to": [
+        "shape.effects.outer_shadow"
+      ],
+      "fixes": [
+        "fix.color.rgb-to-hex",
+        "fix.color.named-to-hex"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "layers": 1,
+        "allow_inset": false,
+        "allow_spread": false
+      }
+    },
+    "opacity": {
+      "kind": "opacity",
+      "group": "paint",
+      "syntax": "0–1",
+      "status": "stable",
+      "maps_to": [
+        "shape.fill.alpha"
+      ],
+      "fixes": [
+        "fix.paint.opacity-dropped",
+        "fix.media.opacity-dropped"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "min": 0,
+        "max": 1
+      },
+      "note": "无填充/描边/阴影的元素上无意义，会被丢弃并记录"
+    },
+    "font-size": {
+      "kind": "length",
+      "group": "text",
+      "syntax": "长度（px / em / % / pt），6–200px",
+      "status": "stable",
+      "maps_to": [
+        "text.run.font.size"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE",
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 6,
+        "max_px": 200,
+        "percent_ref": "parent.font_size"
+      }
+    },
+    "font-weight": {
+      "kind": "font-weight",
+      "group": "text",
+      "syntax": "normal / bold / 100–900",
+      "status": "stable",
+      "maps_to": [
+        "text.run.font.bold"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "min": 100,
+        "max": 900,
+        "bold_threshold": 600
+      }
+    },
+    "font-family": {
+      "kind": "font",
+      "group": "text",
+      "syntax": "白名单字体名，逗号分隔",
+      "status": "stable",
+      "maps_to": [
+        "text.run.font.latin",
+        "text.run.font.east_asian"
+      ],
+      "fixes": [
+        "fix.font.whitelist"
+      ],
+      "rejects": [],
+      "note": "取首个命中白名单的字体名；无命中时回落到策略默认字体并记 lossy 修复"
+    },
+    "color": {
+      "kind": "color",
+      "group": "text",
+      "syntax": "颜色（#hex / rgb() / rgba() / 具名色）",
+      "status": "stable",
+      "maps_to": [
+        "text.run.font.color"
+      ],
+      "fixes": [
+        "fix.color.rgb-to-hex",
+        "fix.color.named-to-hex"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ]
+    },
+    "line-height": {
+      "kind": "line-height",
+      "group": "text",
+      "syntax": "倍数 / <长度> / <百分比>",
+      "status": "stable",
+      "maps_to": [
+        "text.paragraph.line_spacing"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-multiple",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "min_multiple": 0,
+        "max_multiple": 5
+      }
+    },
+    "text-align": {
+      "kind": "enum",
+      "group": "text",
+      "syntax": "left / center / right / justify",
+      "status": "stable",
+      "maps_to": [
+        "text.paragraph.alignment"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "left",
+        "center",
+        "right",
+        "justify"
+      ]
+    },
+    "padding": {
+      "kind": "padding",
+      "group": "text",
+      "syntax": "1–4 个长度",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.margin"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ]
+    },
+    "white-space": {
+      "kind": "enum",
+      "group": "text",
+      "syntax": "normal / nowrap",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.word_wrap"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "normal",
+        "nowrap"
+      ]
+    },
+    "letter-spacing": {
+      "kind": "letter-spacing",
+      "group": "text",
+      "syntax": "长度（px，可负），0 表示无",
+      "status": "stable",
+      "maps_to": [
+        "text.run.font.spacing"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "note": "任意 px 字距映射为 run 级 spc（1/100 pt）"
+    },
+    "object-fit": {
+      "kind": "enum",
+      "group": "media",
+      "syntax": "contain / cover",
+      "status": "stable",
+      "maps_to": [
+        "picture.crop.contain",
+        "picture.crop.cover"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "contain",
+        "cover"
+      ],
+      "note": "contain 等比缩放并留白；cover 等比缩放并裁剪超出部分"
+    },
+    "display": {
+      "kind": "display",
+      "group": "compat",
+      "syntax": "none / block / inline / inline-block / flex",
+      "status": "stable",
+      "maps_to": [
+        "compat.hidden",
+        "compat.drop"
+      ],
+      "fixes": [
+        "fix.structure.hidden-subtree",
+        "fix.compat.display-dropped"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "none",
+        "block",
+        "inline",
+        "inline-block",
+        "flex"
+      ],
+      "note": "none 剪掉整棵子树；block/inline 在绝对定位模型下无意义，丢弃；flex 触发单行 flex 布局（见 flex-direction 等）"
+    },
+    "margin": {
+      "kind": "margin",
+      "group": "compat",
+      "syntax": "0（1–4 个 0）",
+      "status": "stable",
+      "maps_to": [
+        "compat.drop"
+      ],
+      "fixes": [
+        "fix.compat.margin-zero-dropped"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "only": 0
+      },
+      "note": "定位用 left/top；margin:0 是模型的常见噪声，直接丢弃"
+    },
+    "clip-path": {
+      "kind": "clip-path",
+      "group": "paint",
+      "syntax": "polygon(x y, ...)，坐标 %/px，至少 3 个顶点",
+      "status": "stable",
+      "maps_to": [
+        "shape.geometry.freeform"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "constraints": {
+        "shapes": [
+          "polygon"
+        ]
+      },
+      "note": "仅 polygon；顶点按声明盒换算为自由多边形，其余 clip-path 形态拒绝"
+    },
+    "writing-mode": {
+      "kind": "writing-mode",
+      "group": "text",
+      "syntax": "vertical-rl",
+      "status": "stable",
+      "maps_to": [
+        "text.body.vert"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "vertical-rl",
+        "horizontal-tb"
+      ],
+      "note": "horizontal-tb 为默认，按无操作处理"
+    },
+    "text-indent": {
+      "kind": "text-indent",
+      "group": "text",
+      "syntax": "长度（px，可负）",
+      "status": "stable",
+      "maps_to": [
+        "text.paragraph.indent"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "note": "按 CSS 语义只作用于首段首行"
+    },
+    "padding-top": {
+      "kind": "length",
+      "group": "text",
+      "syntax": "长度（px / em / pt）",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.margin"
+      ],
+      "fixes": [
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 0
+      },
+      "note": "padding 长写，按书写顺序覆盖简写对应边"
+    },
+    "padding-right": {
+      "kind": "length",
+      "group": "text",
+      "syntax": "长度（px / em / pt）",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.margin"
+      ],
+      "fixes": [
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 0
+      },
+      "note": "padding 长写，按书写顺序覆盖简写对应边"
+    },
+    "padding-bottom": {
+      "kind": "length",
+      "group": "text",
+      "syntax": "长度（px / em / pt）",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.margin"
+      ],
+      "fixes": [
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 0
+      },
+      "note": "padding 长写，按书写顺序覆盖简写对应边"
+    },
+    "padding-left": {
+      "kind": "length",
+      "group": "text",
+      "syntax": "长度（px / em / pt）",
+      "status": "stable",
+      "maps_to": [
+        "text.frame.margin"
+      ],
+      "fixes": [
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 0
+      },
+      "note": "padding 长写，按书写顺序覆盖简写对应边"
+    },
+    "transform-origin": {
+      "kind": "transform-origin",
+      "group": "layout",
+      "syntax": "center / center center",
+      "status": "stable",
+      "maps_to": [],
+      "fixes": [
+        "fix.style.transform-origin-dropped"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "center",
+        "center center"
+      ],
+      "note": "DrawingML 旋转枢轴恒为形状中心；非 center 原点会改变画面，直接拒绝"
+    },
+    "flex-direction": {
+      "kind": "enum",
+      "group": "layout",
+      "syntax": "row / column",
+      "status": "stable",
+      "maps_to": [
+        "layout.flex.main_axis"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "row",
+        "column"
+      ],
+      "note": "单行 flex：不支持 wrap 与 *-reverse"
+    },
+    "justify-content": {
+      "kind": "enum",
+      "group": "layout",
+      "syntax": "flex-start / center / flex-end / space-between / space-around",
+      "status": "stable",
+      "maps_to": [
+        "layout.flex.justify"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "flex-start",
+        "center",
+        "flex-end",
+        "space-between",
+        "space-around"
+      ]
+    },
+    "align-items": {
+      "kind": "enum",
+      "group": "layout",
+      "syntax": "flex-start / center / flex-end / stretch",
+      "status": "stable",
+      "maps_to": [
+        "layout.flex.align"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "values": [
+        "flex-start",
+        "center",
+        "flex-end",
+        "stretch"
+      ]
+    },
+    "gap": {
+      "kind": "length",
+      "group": "layout",
+      "syntax": "长度（px / em / pt）",
+      "status": "stable",
+      "maps_to": [
+        "layout.flex.gap"
+      ],
+      "fixes": [
+        "fix.unit.percent-to-px",
+        "fix.unit.em-to-px",
+        "fix.unit.pt-to-px"
+      ],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_UNIT"
+      ],
+      "constraints": {
+        "min_px": 0
+      },
+      "note": "单值：主轴与交叉轴同距（row-gap/column-gap 长写不支持）"
+    },
+    "flex": {
+      "kind": "flex",
+      "group": "layout",
+      "syntax": "none / auto / <grow> [<shrink> [auto]]",
+      "status": "stable",
+      "maps_to": [
+        "layout.flex.item"
+      ],
+      "fixes": [],
+      "rejects": [
+        "CONTRACT_UNSUPPORTED_VALUE"
+      ],
+      "note": "flex-basis 仅 auto；主轴尺寸由声明盒或内容估算给出"
+    }
+  },
+  "fix_rules": {
+    "fix.structure.implicit-absolute": {
+      "lossless": true,
+      "summary": "元素声明了 left/top 却缺 position 时补 absolute"
+    },
+    "fix.structure.root-origin": {
+      "lossless": true,
+      "summary": "根画布上的 position 与 left/top=0 属噪声，忽略不影响语义"
+    },
+    "fix.structure.hidden-subtree": {
+      "lossless": true,
+      "summary": "display:none 的元素连同子树不进入 IR"
+    },
+    "fix.unit.percent-to-px": {
+      "lossless": true,
+      "summary": "百分比按最近定位祖先的对应轴换算为 px"
+    },
+    "fix.unit.percent-to-multiple": {
+      "lossless": true,
+      "summary": "line-height 的百分比换算为倍数"
+    },
+    "fix.unit.em-to-px": {
+      "lossless": true,
+      "summary": "em 按当前继承字号换算为 px"
+    },
+    "fix.unit.pt-to-px": {
+      "lossless": true,
+      "summary": "pt 按 96/72 换算为 px"
+    },
+    "fix.color.rgb-to-hex": {
+      "lossless": true,
+      "summary": "rgb()/rgba() 归一为 #RRGGBB，alpha 单独保留"
+    },
+    "fix.color.named-to-hex": {
+      "lossless": true,
+      "summary": "具名颜色归一为 #RRGGBB"
+    },
+    "fix.font.whitelist": {
+      "lossless": false,
+      "summary": "字体族回落到当前策略白名单中的命中项或默认字体，字形可能变化"
+    },
+    "fix.compat.display-dropped": {
+      "lossless": true,
+      "summary": "display 的 block/inline 值在绝对定位模型下丢弃"
+    },
+    "fix.compat.margin-zero-dropped": {
+      "lossless": true,
+      "summary": "margin:0 丢弃"
+    },
+    "fix.table.pad-columns": {
+      "lossless": true,
+      "summary": "行列数不齐时补空单元格到最大列数"
+    },
+    "fix.table.cell-width-ignored": {
+      "lossless": true,
+      "summary": "单元格 width 由表格列宽决定，声明被忽略"
+    },
+    "fix.table.cell-formatting-dropped": {
+      "lossless": false,
+      "summary": "单元格内除 <b>/<i> 外的内联标签样式丢弃，只保留文本"
+    },
+    "fix.paint.opacity-dropped": {
+      "lossless": false,
+      "summary": "无填充/描边/阴影的元素上的 opacity 无意义，丢弃"
+    },
+    "fix.media.opacity-dropped": {
+      "lossless": false,
+      "summary": "图片透明度 v1 不支持，丢弃"
+    },
+    "fix.compat.box-sizing-dropped": {
+      "lossless": true,
+      "summary": "box-sizing:border-box 与直写宽高语义一致，声明被吸收"
+    },
+    "fix.compat.overflow-dropped": {
+      "lossless": true,
+      "summary": "文本溢出由自动缩字处理，overflow:hidden 被吸收"
+    },
+    "fix.style.transform-origin-dropped": {
+      "lossless": true,
+      "summary": "transform-origin 恒为中心（旋转枢轴），声明丢弃"
+    },
+    "fix.structure.relative-normalized": {
+      "lossless": true,
+      "summary": "position:relative 按声明盒定位处理（绝对盒模型无文档流）"
+    },
+    "fix.unit.vw-to-px": {
+      "lossless": true,
+      "summary": "vw 按画布宽换算（视口即 1280×720 画布）"
+    },
+    "fix.unit.vh-to-px": {
+      "lossless": true,
+      "summary": "vh 按画布高换算（视口即 1280×720 画布）"
+    },
+    "fix.layout.flex-text-absorbed": {
+      "lossless": true,
+      "summary": "纯文本 flex 容器：居中/对齐吸收为文本对齐"
+    },
+    "fix.layout.flex-offset-dropped": {
+      "lossless": true,
+      "summary": "flex 子项的 left/top 在静态流中本就不生效，丢弃"
+    },
+    "fix.structure.viewport-flattened": {
+      "lossless": true,
+      "summary": "视口居中壳（100vw/100vh flex + 画布尺寸 stage）合并为画布"
+    },
+    "fix.structure.root-noise-dropped": {
+      "lossless": true,
+      "summary": "根画布上无意义的 flex 声明丢弃"
+    },
+    "fix.layout.static-fill": {
+      "lossless": true,
+      "summary": "无定位的图片按流式规则放在父内容区左上角"
+    },
+    "fix.media.border-radius-dropped": {
+      "lossless": false,
+      "summary": "图片圆角 v1 不支持，按直角渲染"
+    }
+  },
+  "diagnostics": {
+    "CONTRACT_UNKNOWN_PROPERTY": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "CSS 属性不在 v1 白名单"
+    },
+    "CONTRACT_UNKNOWN_TAG": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "HTML 标签不在 v1 白名单"
+    },
+    "CONTRACT_UNKNOWN_ATTRIBUTE": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "SVG 属性不在白名单"
+    },
+    "CONTRACT_UNSUPPORTED_VALUE": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "属性取值不受支持"
+    },
+    "CONTRACT_UNSUPPORTED_UNIT": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "长度单位或写法不受支持"
+    },
+    "STRUCTURE_ROOT_REQUIRED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "body 下必须恰好有一个根 div（画布）"
+    },
+    "STRUCTURE_ROOT_PROPERTY_FORBIDDEN": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "根容器只接受背景、默认字体与画布尺寸"
+    },
+    "STRUCTURE_CANVAS_MISMATCH": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "根容器声明的宽高与固定画布不一致"
+    },
+    "STRUCTURE_ORPHAN_TEXT": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "游离文本没有定位盒"
+    },
+    "STRUCTURE_MISSING_BOX": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "元素缺少 left/top/width/height"
+    },
+    "STRUCTURE_MIXED_CONTENT": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "同一 div 内混排文本与结构子元素"
+    },
+    "STRUCTURE_DEPTH_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "嵌套深度超过限额"
+    },
+    "STRUCTURE_TAG_FORBIDDEN_CHILD": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "标签出现在不允许的父元素下"
+    },
+    "TABLE_MERGED_CELLS": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "表格包含 rowspan/colspan"
+    },
+    "TABLE_NESTED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "表格内嵌表格"
+    },
+    "TABLE_EMPTY": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "表格没有数据行"
+    },
+    "TABLE_CELL_FORMATTING_DROPPED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "单元格内的内联样式被丢弃，只保留文本"
+    },
+    "SVG_UNSUPPORTED_ELEMENT": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "SVG 图元不在白名单（仅 rect/circle/line）"
+    },
+    "SVG_INVALID_GEOMETRY": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "SVG 图元缺少必要几何属性或取值为非正"
+    },
+    "ASSET_SRC_MISSING": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片缺少 src 或 src 为空"
+    },
+    "ASSET_NOT_FOUND": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片缺少 src 或 src 为空"
+    },
+    "ASSET_PATH_DENIED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片路径越出 base_dir 或使用绝对路径/UNC"
+    },
+    "ASSET_TOO_LARGE": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片体积超过限额"
+    },
+    "ASSET_UNSUPPORTED_TYPE": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片 MIME 不在 image/* 或无法识别"
+    },
+    "ASSET_DECODE_FAILED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片字节无法解码"
+    },
+    "LIMIT_ELEMENTS_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "单页元素数超过限额"
+    },
+    "LIMIT_HTML_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "单页 HTML 字节数超过限额"
+    },
+    "LIMIT_TEXT_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "单元素文本量超过限额"
+    },
+    "LIMIT_TABLE_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "表格行列数超过限额"
+    },
+    "LIMIT_IMAGE_EXCEEDED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "图片像素尺寸超过限额"
+    },
+    "FONT_EMBED_FILE_MISSING": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "字体文件在系统里未找到，未内嵌"
+    },
+    "FONT_EMBED_LICENSE_RESTRICTED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "字体许可为受限嵌入（fsType=1），未内嵌"
+    },
+    "FONT_EMBED_LIMIT": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "内嵌字体超过上限，剩余家族跳过"
+    },
+    "FONT_EMBED_SUBSET_FAILED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "字体子集化失败，未内嵌"
+    },
+    "FONT_EMBED_SKIPPED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "presentation.xml 结构异常，跳过字体内嵌"
+    },
+    "TEXT_OVERFLOW_ESTIMATED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "估算文本高度超出盒子，可能溢出"
+    },
+    "FONT_FALLBACK_APPLIED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "字体在目标机器可能缺失，回退后换行可能变化"
+    },
+    "FIX_LOSSY_APPLIED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "表格行列数超过限额"
+    },
+    "STYLE_AT_RULE_IGNORED": {
+      "severity": "warning",
+      "hint_required": true,
+      "summary": "样式表 @ 规则（font-face/media 等）被忽略"
+    },
+    "STYLE_SELECTOR_UNSUPPORTED": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "选择器仅支持标签 / .class / 标签.class 组合"
+    },
+    "STRUCTURE_FLEX_INVALID": {
+      "severity": "error",
+      "hint_required": true,
+      "summary": "flex 容器/子项无法求值（缺尺寸、内容区为零等）"
+    }
+  },
+  "limits": {
+    "html_bytes": 2000000,
+    "elements_per_slide": 150,
+    "nesting_depth": 12,
+    "text_chars": 20000,
+    "paragraphs": 200,
+    "table_rows": 50,
+    "table_cols": 12,
+    "image_bytes": 10485760,
+    "image_pixels": 40000000
+  },
+  "fonts": {
+    "portable": {
+      "default": "Source Han Sans SC",
+      "whitelist": {
+        "source han sans sc": "Source Han Sans SC",
+        "思源黑体": "Source Han Sans SC",
+        "华文中宋": "华文中宋",
+        "stzhongsong": "华文中宋",
+        "华康宋体w12(p)": "华文中宋",
+        "noto sans cjk sc": "Noto Sans CJK SC",
+        "liberation sans": "Liberation Sans",
+        "arial": "Liberation Sans",
+        "helvetica": "Liberation Sans",
+        "helvetica neue": "Liberation Sans",
+        "segoe ui": "Liberation Sans",
+        "microsoft yahei": "Source Han Sans SC",
+        "微软雅黑": "Source Han Sans SC",
+        "pingfang sc": "Source Han Sans SC",
+        "system-ui": "Source Han Sans SC",
+        "sans-serif": "Source Han Sans SC"
+      }
+    },
+    "windows": {
+      "default": "Microsoft YaHei",
+      "whitelist": {
+        "microsoft yahei": "Microsoft YaHei",
+        "微软雅黑": "Microsoft YaHei",
+        "华文中宋": "华文中宋",
+        "stzhongsong": "华文中宋",
+        "华康宋体w12(p)": "华康宋体W12(P)",
+        "等线": "等线",
+        "segoe ui": "Segoe UI",
+        "arial": "Arial",
+        "helvetica": "Arial",
+        "source han sans sc": "Microsoft YaHei",
+        "思源黑体": "Microsoft YaHei",
+        "noto sans cjk sc": "Microsoft YaHei",
+        "system-ui": "Segoe UI",
+        "sans-serif": "Microsoft YaHei"
+      }
+    }
+  },
+  "colors": {
+    "aliceblue": "F0F8FF",
+    "antiquewhite": "FAEBD7",
+    "aqua": "00FFFF",
+    "aquamarine": "7FFFD4",
+    "azure": "F0FFFF",
+    "beige": "F5F5DC",
+    "bisque": "FFE4C4",
+    "black": "000000",
+    "blanchedalmond": "FFEBCD",
+    "blue": "0000FF",
+    "blueviolet": "8A2BE2",
+    "brown": "A52A2A",
+    "burlywood": "DEB887",
+    "cadetblue": "5F9EA0",
+    "chartreuse": "7FFF00",
+    "chocolate": "D2691E",
+    "coral": "FF7F50",
+    "cornflowerblue": "6495ED",
+    "cornsilk": "FFF8DC",
+    "crimson": "DC143C",
+    "cyan": "00FFFF",
+    "darkblue": "00008B",
+    "darkcyan": "008B8B",
+    "darkgoldenrod": "B8860B",
+    "darkgray": "A9A9A9",
+    "darkgreen": "006400",
+    "darkgrey": "A9A9A9",
+    "darkkhaki": "BDB76B",
+    "darkmagenta": "8B008B",
+    "darkolivegreen": "556B2F",
+    "darkorange": "FF8C00",
+    "darkorchid": "9932CC",
+    "darkred": "8B0000",
+    "darksalmon": "E9967A",
+    "darkseagreen": "8FBC8F",
+    "darkslateblue": "483D8B",
+    "darkslategray": "2F4F4F",
+    "darkslategrey": "2F4F4F",
+    "darkturquoise": "00CED1",
+    "darkviolet": "9400D3",
+    "deeppink": "FF1493",
+    "deepskyblue": "00BFFF",
+    "dimgray": "696969",
+    "dimgrey": "696969",
+    "dodgerblue": "1E90FF",
+    "firebrick": "B22222",
+    "floralwhite": "FFFAF0",
+    "forestgreen": "228B22",
+    "fuchsia": "FF00FF",
+    "gainsboro": "DCDCDC",
+    "ghostwhite": "F8F8FF",
+    "gold": "FFD700",
+    "goldenrod": "DAA520",
+    "gray": "808080",
+    "green": "008000",
+    "greenyellow": "ADFF2F",
+    "grey": "808080",
+    "honeydew": "F0FFF0",
+    "hotpink": "FF69B4",
+    "indianred": "CD5C5C",
+    "indigo": "4B0082",
+    "ivory": "FFFFF0",
+    "khaki": "F0E68C",
+    "lavender": "E6E6FA",
+    "lavenderblush": "FFF0F5",
+    "lawngreen": "7CFC00",
+    "lemonchiffon": "FFFACD",
+    "lightblue": "ADD8E6",
+    "lightcoral": "F08080",
+    "lightcyan": "E0FFFF",
+    "lightgoldenrodyellow": "FAFAD2",
+    "lightgray": "D3D3D3",
+    "lightgreen": "90EE90",
+    "lightgrey": "D3D3D3",
+    "lightpink": "FFB6C1",
+    "lightsalmon": "FFA07A",
+    "lightseagreen": "20B2AA",
+    "lightskyblue": "87CEFA",
+    "lightslategray": "778899",
+    "lightslategrey": "778899",
+    "lightsteelblue": "B0C4DE",
+    "lightyellow": "FFFFE0",
+    "lime": "00FF00",
+    "limegreen": "32CD32",
+    "linen": "FAF0E6",
+    "magenta": "FF00FF",
+    "maroon": "800000",
+    "mediumaquamarine": "66CDAA",
+    "mediumblue": "0000CD",
+    "mediumorchid": "BA55D3",
+    "mediumpurple": "9370DB",
+    "mediumseagreen": "3CB371",
+    "mediumslateblue": "7B68EE",
+    "mediumspringgreen": "00FA9A",
+    "mediumturquoise": "48D1CC",
+    "mediumvioletred": "C71585",
+    "midnightblue": "191970",
+    "mintcream": "F5FFFA",
+    "mistyrose": "FFE4E1",
+    "moccasin": "FFE4B5",
+    "navajowhite": "FFDEAD",
+    "navy": "000080",
+    "oldlace": "FDF5E6",
+    "olive": "808000",
+    "olivedrab": "6B8E23",
+    "orange": "FFA500",
+    "orangered": "FF4500",
+    "orchid": "DA70D6",
+    "palegoldenrod": "EEE8AA",
+    "palegreen": "98FB98",
+    "paleturquoise": "AFEEEE",
+    "palevioletred": "DB7093",
+    "papayawhip": "FFEFD5",
+    "peachpuff": "FFDAB9",
+    "peru": "CD853F",
+    "pink": "FFC0CB",
+    "plum": "DDA0DD",
+    "powderblue": "B0E0E6",
+    "purple": "800080",
+    "rebeccapurple": "663399",
+    "red": "FF0000",
+    "rosybrown": "BC8F8F",
+    "royalblue": "4169E1",
+    "saddlebrown": "8B4513",
+    "salmon": "FA8072",
+    "sandybrown": "F4A460",
+    "seagreen": "2E8B57",
+    "seashell": "FFF5EE",
+    "sienna": "A0522D",
+    "silver": "C0C0C0",
+    "skyblue": "87CEEB",
+    "slateblue": "6A5ACD",
+    "slategray": "708090",
+    "slategrey": "708090",
+    "snow": "FFFAFA",
+    "springgreen": "00FF7F",
+    "steelblue": "4682B4",
+    "tan": "D2B48C",
+    "teal": "008080",
+    "thistle": "D8BFD8",
+    "tomato": "FF6347",
+    "turquoise": "40E0D0",
+    "violet": "EE82EE",
+    "wheat": "F5DEB3",
+    "white": "FFFFFF",
+    "whitesmoke": "F5F5F5",
+    "yellow": "FFFF00",
+    "yellowgreen": "9ACD32"
+  }
+}

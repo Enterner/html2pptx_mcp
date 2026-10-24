@@ -1,0 +1,118 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "html2pptx-mcp"
+version = "0.4.0"
+description = "Generate natively editable PowerPoint decks from a restricted, versioned HTML contract."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "html2pptx-mcp contributors" }]
+keywords = [
+    "mcp",
+    "pptx",
+    "powerpoint",
+    "html",
+    "presentation",
+    "font-embedding",
+    "reverse",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Office Suites",
+    "Typing :: Typed",
+]
+dependencies = [
+    "python-pptx>=1.0.2",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.2",
+    "pillow>=10.3",
+    "fonttools>=4.53",
+    "mcp>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "hypothesis>=6.100",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pre-commit>=3.7",
+    "import-linter>=2.0",
+]
+
+[project.scripts]
+html2pptx-cli = "html2pptx_mcp.convert.cli:main"
+html2pptx-mcp = "html2pptx_mcp.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/Enterner/html2pptx_mcp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/html2pptx_mcp"]
+# 契约数据是运行时资源，必须随 wheel 分发；缺了它们服务启动即失败
+artifacts = ["src/html2pptx_mcp/convert/data/**"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src",
+    "tests",
+    "docs",
+    "examples",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+]
+
+# ---- 质量工具 ----
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+# docs/ 里的代码块示例不参与格式化与 lint
+exclude = ["docs", ".venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# 契约数据与用例里存在中文全角标点，行长只对代码生效，不做 E501 豁免以外的放宽
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["html2pptx_mcp"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src"]
+mypy_path = "src"
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_return_any = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["bs4.*", "pptx.*", "lxml.*", "PIL.*", "fontTools.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+pythonpath = ["src"]
+markers = [
+    "slow: 需要外部工具（LibreOffice 等）的用例，默认不在 CI 快跑中执行",
+]

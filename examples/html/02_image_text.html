@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>图文页</title></head>
+<body>
+  <!-- 版式二：图文页（门禁 §10.2 三典型版式之一）
+       覆盖：白卡片(border+radius+单层 box-shadow)、img object-fit:contain、
+             多段文本(<br> 分段 → 段落)、按钮形状 -->
+  <div id="page" style="width:1280px;height:720px;background-color:#F8FAFC">
+    <div style="position:absolute;left:64px;top:56px;width:200px;height:28px;font-size:20px;font-weight:bold;color:#4338CA">产品概述</div>
+    <div style="position:absolute;left:64px;top:120px;width:560px;height:420px;background-color:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;box-shadow:0 4px 12px rgba(15,23,42,0.08)"></div>
+    <img style="position:absolute;left:88px;top:144px;width:512px;height:300px;object-fit:contain" src="assets/photo.png" alt="产品照片">
+    <div style="position:absolute;left:88px;top:464px;width:512px;height:28px;font-size:16px;color:#475569;line-height:1.6">图 1 · 示意图片（object-fit:contain，等比居中落位）</div>
+    <div style="position:absolute;left:688px;top:120px;width:528px;height:48px;font-size:32px;font-weight:bold;color:#0F172A">为什么选择映射表方案</div>
+    <div style="position:absolute;left:688px;top:200px;width:520px;height:240px;font-size:18px;color:#334155;line-height:1.8">白名单外属性一律报错，绝无静默丢弃<br>位置换算 1px = 9525 EMU，无损落位<br>DOM 顺序即 z 序，所见即所得<br>文本、形状、图片、表格全部为原生可编辑对象</div>
+    <div style="position:absolute;left:688px;top:560px;width:160px;height:48px;background-color:#4F46E5;border-radius:8px;font-size:18px;color:#FFFFFF;text-align:center;line-height:48px">了解更多</div>
+  </div>
+</body>
+</html>
