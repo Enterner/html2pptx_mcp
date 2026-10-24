@@ -17,7 +17,7 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 from importlib import resources
 from pathlib import Path
@@ -60,7 +60,8 @@ class PropertySpec:
     fixes: tuple[str, ...]
     rejects: tuple[str, ...]
     values: tuple[str, ...] | None = None
-    constraints: Mapping[str, Any] = MappingProxyType({})
+    # 3.11 的 dataclass 拒绝 mappingproxy 这类不可 hash 默认值，必须走 default_factory
+    constraints: Mapping[str, Any] = field(default_factory=lambda: MappingProxyType({}))
     note: str = ""
 
 
