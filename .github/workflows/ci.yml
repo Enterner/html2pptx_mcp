@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+
+      - name: 安装依赖
+        run: uv sync --extra dev
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: 格式检查
+        run: uv run ruff format --check .
+
+      - name: 类型检查
+        run: uv run mypy
+
+      - name: 单元测试
+        run: uv run pytest -q
+
+      - name: 管线冒烟
+        run: uv run python -c "from html2pptx_mcp.convert import load_contract; c = load_contract(); print('contract', c.name, len(c.properties), 'properties')"
+
+      - name: 契约文档一致性
+        run: uv run python scripts/gen_contract_docs.py --check
+
+      - name: 打包并检查资源完整性
+        run: |
+          uv build
+          uv run python scripts/check_wheel.py

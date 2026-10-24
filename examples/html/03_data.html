@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>数据页</title></head>
+<body>
+  <!-- 版式三：数据页（门禁 §10.2 三典型版式之一）
+       覆盖：容器 div（KPI 卡带背景 + 内部子元素扁平化，不产生 pptx 组合形状）、
+             svg line（分隔线 → 连接线）、svg circle、简单表格（thead + 首行单元格列宽）、脚注 -->
+  <div id="page" style="width:1280px;height:720px;background-color:#FFFFFF">
+    <div style="position:absolute;left:64px;top:48px;width:400px;height:40px;font-size:28px;font-weight:bold;color:#0F172A">季度经营数据</div>
+    <svg style="position:absolute;left:1176px;top:52px" width="24" height="24"><circle cx="12" cy="12" r="10" fill="#4F46E5"></circle></svg>
+
+    <div style="position:absolute;left:64px;top:120px;width:360px;height:140px;background-color:#EEF2FF;border-radius:12px">
+      <div style="position:absolute;left:24px;top:24px;width:200px;height:24px;font-size:16px;color:#4338CA">营业收入</div>
+      <div style="position:absolute;left:24px;top:62px;width:280px;height:48px;font-size:36px;font-weight:bold;color:#1E1B4B">¥ 12.8 亿</div>
+    </div>
+    <div style="position:absolute;left:460px;top:120px;width:360px;height:140px;background-color:#ECFDF5;border-radius:12px">
+      <div style="position:absolute;left:24px;top:24px;width:200px;height:24px;font-size:16px;color:#047857">营收同比</div>
+      <div style="position:absolute;left:24px;top:62px;width:280px;height:48px;font-size:36px;font-weight:bold;color:#065F46">+32%</div>
+    </div>
+    <div style="position:absolute;left:856px;top:120px;width:360px;height:140px;background-color:#FFFBEB;border-radius:12px">
+      <div style="position:absolute;left:24px;top:24px;width:200px;height:24px;font-size:16px;color:#B45309">毛利率</div>
+      <div style="position:absolute;left:24px;top:62px;width:280px;height:48px;font-size:36px;font-weight:bold;color:#92400E">38.2%</div>
+    </div>
+
+    <svg style="position:absolute;left:64px;top:300px" width="1152" height="2">
+      <line x1="0" y1="1" x2="1152" y2="1" stroke="#CBD5E1" stroke-width="2"></line>
+    </svg>
+
+    <table style="position:absolute;left:64px;top:340px;width:1152px;height:280px;font-size:16px;color:#0F172A">
+      <thead>
+        <tr><th style="width:384px">事业部</th><th style="width:256px">营收（亿元）</th><th style="width:256px">同比</th><th style="width:256px">毛利率</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>智能硬件</td><td>6.4</td><td>+41%</td><td>32.5%</td></tr>
+        <tr><td>企业服务</td><td>4.1</td><td>+22%</td><td>58.0%</td></tr>
+        <tr><td>海外业务</td><td>2.3</td><td>+15%</td><td>27.9%</td></tr>
+      </tbody>
+    </table>
+
+    <div style="position:absolute;left:64px;top:660px;width:800px;height:22px;font-size:14px;color:#94A3B8">数据来源：财务部（示例数据，仅用于管线验证）</div>
+  </div>
+</body>
+</html>

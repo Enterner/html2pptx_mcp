@@ -1,0 +1,45 @@
+{
+  "note": "按交付环境选择字体策略：portable 用可自由分发的 OFL/Apache 字体，windows 用目标机器必有的系统字体。白名单把 CSS 常见写法映射到实际写进 pptx 的字体名。华康宋体W12(P)/等线 为答辩模板原字体，windows 侧按原名映射保字形一致——前提是目标机已装（Office 中文版自带等线，宋体W12 为模板配套字体）；未装时 PowerPoint 自行回退，portable 策略仍映射到可分发字体。",
+  "strategies": {
+    "portable": {
+      "default": "Source Han Sans SC",
+      "whitelist": {
+        "source han sans sc": "Source Han Sans SC",
+        "思源黑体": "Source Han Sans SC",
+        "华文中宋": "华文中宋",
+        "stzhongsong": "华文中宋",
+        "华康宋体w12(p)": "华文中宋",
+        "noto sans cjk sc": "Noto Sans CJK SC",
+        "liberation sans": "Liberation Sans",
+        "arial": "Liberation Sans",
+        "helvetica": "Liberation Sans",
+        "helvetica neue": "Liberation Sans",
+        "segoe ui": "Liberation Sans",
+        "microsoft yahei": "Source Han Sans SC",
+        "微软雅黑": "Source Han Sans SC",
+        "pingfang sc": "Source Han Sans SC",
+        "system-ui": "Source Han Sans SC",
+        "sans-serif": "Source Han Sans SC"
+      }
+    },
+    "windows": {
+      "default": "Microsoft YaHei",
+      "whitelist": {
+        "microsoft yahei": "Microsoft YaHei",
+        "微软雅黑": "Microsoft YaHei",
+        "华文中宋": "华文中宋",
+        "stzhongsong": "华文中宋",
+        "华康宋体w12(p)": "华康宋体W12(P)",
+        "等线": "等线",
+        "segoe ui": "Segoe UI",
+        "arial": "Arial",
+        "helvetica": "Arial",
+        "source han sans sc": "Microsoft YaHei",
+        "思源黑体": "Microsoft YaHei",
+        "noto sans cjk sc": "Microsoft YaHei",
+        "system-ui": "Segoe UI",
+        "sans-serif": "Microsoft YaHei"
+      }
+    }
+  }
+}
