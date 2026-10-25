@@ -35,8 +35,9 @@
   视觉验收（真实 PowerPoint 渲染像素 diff，compare_visual）。
 - **分发**：PyPI trusted publishing（tag 触发），`uvx html2pptx-mcp` 一行接入；
   wheel 自检脚本随仓库提供。
-- 服务端工作流新增确认节奏：默认「先 HTML 后 pptx」，validate 通过后等用户
-  确认再调 convert_html（用户明确要求直接出片或连续迭代时跳过）。
+- 服务端工作流新增确认节奏：接到「做 ppt」任务默认先询问是否出 HTML 过目，
+  validate 通过后等用户确认再调 convert_html（用户坚决要求直接出片或连续
+  迭代时跳过询问）。
 
 ## [0.4.1] - 2026-10-25（PyPI 已存在，重置前快照）
 
