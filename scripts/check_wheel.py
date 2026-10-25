@@ -9,6 +9,11 @@ import glob
 import sys
 import zipfile
 
+# CI 的 Windows runner 默认 stdout 是 cp1252，中文 print 会直接 UnicodeEncodeError；
+# 强制 UTF-8 让脚本在任何代码页下都能输出（Python 3.7+ 支持 reconfigure）。
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 REQUIRED = (
     "html2pptx_mcp/py.typed",
     "html2pptx_mcp/server.py",

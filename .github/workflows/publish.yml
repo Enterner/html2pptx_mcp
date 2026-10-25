@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     # environment 名与 PyPI Trusted Publisher 里登记的保持一致（大小写敏感）
     environment: pypi
+    # Windows runner 默认 cp1252，中文输出会 UnicodeEncodeError
+    env:
+      PYTHONUTF8: "1"
     permissions:
       id-token: write
       contents: read

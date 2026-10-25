@@ -13,6 +13,9 @@ jobs:
   test:
     name: ${{ matrix.os }} / py${{ matrix.python }}
     runs-on: ${{ matrix.os }}
+    env:
+      # Windows runner 默认代码页非 UTF-8，中文断言/输出会 UnicodeEncodeError
+      PYTHONUTF8: "1"
     strategy:
       fail-fast: false
       matrix:
